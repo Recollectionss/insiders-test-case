@@ -11,6 +11,19 @@ First you need copy all from example.env to .env
 $ cp example.env .env
 ```
 
+### Run 
+```bash
+$ generate_keys.sh
+```
+### Or
+
+```bash
+$ mkdir -p ./src/shared/keys
+
+$ openssl genpkey -algorithm RSA -out ./src/shared/keys/private.pem -pkeyopt rsa_keygen_bits:2048
+
+$ openssl rsa -pubout -in ./src/shared/keys/private.pem -out ./src/shared/keys/public.pem
+```
 Start docker
 ```bash
 $ docker compose up
