@@ -10,6 +10,4 @@ COPY . /app
 
 RUN npm run build
 
-EXPOSE 5010
-
 CMD ["npm", "run", "start:dev"]
