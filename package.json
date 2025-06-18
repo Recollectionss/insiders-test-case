@@ -30,11 +30,13 @@
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/sequelize": "^11.0.0",
+    "@nestjs/swagger": "^8.1.1",
     "pg": "^8.16.0",
     "pg-hstore": "^2.3.4",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
     "sequelize": "^6.37.7",
+    "sequelize-cli": "^6.6.3",
     "sequelize-typescript": "^2.1.6"
   },
   "devDependencies": {
