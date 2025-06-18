@@ -28,3 +28,9 @@ Start docker
 ```bash
 $ docker compose up
 ```
+
+
+### API
+```url
+http://localhost:5010/api/#/
+```
