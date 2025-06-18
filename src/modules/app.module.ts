@@ -4,6 +4,7 @@ import { PostgresModule } from './postgres/postgres.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { EventModule } from './event/event.module';
+import { ParticipantsModule } from './participants/participants.module';
 import appConfig from '../config/app.config';
 
 @Module({
@@ -13,6 +14,7 @@ import appConfig from '../config/app.config';
     UserModule,
     AuthModule,
     EventModule,
+    ParticipantsModule,
   ],
   controllers: [],
   providers: [],
