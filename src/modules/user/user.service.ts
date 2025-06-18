@@ -10,6 +10,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { UserDto } from './dto/user.dto';
 import { USER_REPOSITORY } from './user.constants';
+import { UserJwtDataDto } from '../auth/dto/user-jwt-data.dto';
 
 @Injectable()
 export class UserService {
@@ -27,8 +28,8 @@ export class UserService {
     }
   }
 
-  async findById(id: string): Promise<UserDto> {
-    const dataValues = await this.findUserByPk(id);
+  async findById(userData: UserJwtDataDto): Promise<UserDto> {
+    const dataValues = await this.findUserByPk(userData.sub);
     return {
       id: dataValues.id,
       email: dataValues.email,
@@ -46,21 +47,21 @@ export class UserService {
     };
   }
 
-  async update(id: string, data: UpdateUserDto): Promise<void> {
+  async update(userData: UserJwtDataDto, data: UpdateUserDto): Promise<void> {
     if (data.email) {
       await this.validateByEmail(data.email);
     }
     try {
-      await this.userRepository.update({ ...data }, { where: { id } });
+      await this.userRepository.update({ ...data }, { where: { id: userData.sub } });
     } catch (error) {
       throw new InternalServerErrorException(error.message);
     }
   }
 
-  async remove(id: string): Promise<void> {
+  async remove(userData: UserJwtDataDto): Promise<void> {
     // Check user exist
-    await this.findUserByPk(id);
-    await this.userRepository.destroy({ where: { id } });
+    await this.findUserByPk(userData.sub);
+    await this.userRepository.destroy({ where: { id: userData.sub } });
   }
 
   private async findUserByPk(id: string) {

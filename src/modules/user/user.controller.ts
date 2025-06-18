@@ -2,34 +2,36 @@ import {
   Controller,
   Get,
   Body,
-  Patch,
-  Param,
   Delete,
   UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtGuard } from '../../guards/jwt/jwt.guard';
+import { UserData } from '../../decorators/user-data/user-data.decorator';
+import { UserJwtDataDto } from '../auth/dto/user-jwt-data.dto';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @UseGuards(JwtGuard)
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userService.findById(id);
+  @Get()
+  findOne(@UserData() userData: UserJwtDataDto) {
+    return this.userService.findById(userData);
   }
 
   @UseGuards(JwtGuard)
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(id, updateUserDto);
+  update(
+    @UserData() userData: UserJwtDataDto,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
+    return this.userService.update(userData, updateUserDto);
   }
 
   @UseGuards(JwtGuard)
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userService.remove(id);
+  @Delete()
+  remove(@UserData() userData: UserJwtDataDto) {
+    return this.userService.remove(userData);
   }
 }
