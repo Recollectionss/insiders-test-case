@@ -1,5 +1,6 @@
 'use strict';
 const schema = process.env.NODE_ENV === 'production' ? 'public' : 'test';
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const { v4: uuidv4 } = require('uuid');
 
 module.exports = {
