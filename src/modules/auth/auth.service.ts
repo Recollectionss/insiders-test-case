@@ -58,7 +58,9 @@ export class AuthService {
   }
 
   async refresh(refreshToken: string, res: Response): Promise<Response> {
+    console.log('refreshToken', refreshToken);
     const tokenData = await this.authJwtService.decode(refreshToken);
+    console.log('refreshToken', refreshToken);
     await this.userService.findById(tokenData);
     const tokens = this.authJwtService.generateTokens({ sub: tokenData.sub });
     res = this.setTokenInCookie(res, tokens.refreshToken);
