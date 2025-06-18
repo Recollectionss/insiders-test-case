@@ -4,6 +4,7 @@ import { ConfigType } from '@nestjs/config';
 import { ENV, NODE_ENV } from '../../constants/env.constants';
 import { Sequelize } from 'sequelize-typescript';
 import { User } from '../user/entities/user.entity';
+import { Event } from '../event/entities/event.entity';
 
 export const postgresProviders = [
   {
@@ -29,7 +30,7 @@ export const postgresProviders = [
         define: { schema: creeds.schema },
       });
 
-      sequelize.addModels([User]);
+      sequelize.addModels([User, Event]);
 
       if (appConf.node_env === NODE_ENV.Testing) {
         await sequelize.sync({ force: true });

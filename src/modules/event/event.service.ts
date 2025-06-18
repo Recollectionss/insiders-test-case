@@ -1,26 +1,27 @@
-import { Injectable } from '@nestjs/common';
-import { CreateEventDto } from './dto/create-event.dto';
-import { UpdateEventDto } from './dto/update-event.dto';
+import { Inject, Injectable } from '@nestjs/common';
+import { EVENT_REPOSITORY } from './event.constants';
+import { Event } from './entities/event.entity';
+import { EventDto } from './dto/event.dto';
+import { Sequelize } from 'sequelize-typescript';
 
 @Injectable()
 export class EventService {
-  create(createEventDto: CreateEventDto) {
-    return 'This action adds a new event';
+  constructor(
+    @Inject(EVENT_REPOSITORY) private readonly eventRepository: typeof Event,
+  ) {}
+
+  async findAll(): Promise<Event[]> {
+    const now = new Date();
+
+    return await this.eventRepository.findAll({
+      order: [
+        [Sequelize.literal(`"date" > '${now.toISOString()}'`), 'DESC'],
+        ['date', 'ASC'],
+      ],
+    });
   }
 
-  findAll() {
-    return `This action returns all event`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} event`;
-  }
-
-  update(id: number, updateEventDto: UpdateEventDto) {
-    return `This action updates a #${id} event`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} event`;
+  async findOne(id: string): Promise<EventDto> {
+    return (await this.eventRepository.findByPk(id)).dataValues;
   }
 }
