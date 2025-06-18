@@ -12,6 +12,7 @@ import { ConfigType } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { UserJwtDataDto } from '../dto/user-jwt-data.dto';
 import { JwtTokensDto } from '../dto/jwt-tokens.dto';
+import { JwtPayload } from '../../../strategy/jwt.strategy';
 
 @Injectable()
 export class AuthJwtService {
@@ -46,6 +47,10 @@ export class AuthJwtService {
         throw new InternalServerErrorException('Token validation error');
       }
     }
+  }
+
+  async decode(token: string): Promise<JwtPayload> {
+    return await this.jwtService.decode(token);
   }
 
   private generateRefreshToken(payload: UserJwtDataDto): string {

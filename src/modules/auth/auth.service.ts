@@ -24,13 +24,13 @@ export class AuthService {
     private readonly jwtConf: ConfigType<typeof jwtConfig>,
   ) {}
 
-  async signUp(data: SignUpDto) {
+  async signUp(data: SignUpDto): Promise<void> {
     data.password = await this.hashingService.setHash(data.password);
     await this.userService.create(data as CreateUserDto);
     return;
   }
 
-  async signIn(data: SignInDto, res: Response) {
+  async signIn(data: SignInDto, res: Response): Promise<Response> {
     const dataValues = await this.userService.findByEmail(data.email);
     if (
       await this.hashingService.compareHash(data.password, dataValues.password)
@@ -44,7 +44,7 @@ export class AuthService {
     });
   }
 
-  async logout(req: Request, res: Response) {
+  async logout(req: Request, res: Response): Promise<Response> {
     const refreshToken = await this.getTokenFromCookies(req);
 
     if (typeof refreshToken === 'undefined') {
@@ -54,7 +54,15 @@ export class AuthService {
     return res.status(HttpStatus.OK).json({});
   }
 
-  private setTokenInCookie(res: Response, refreshToken: string) {
+  async refresh(refreshToken: string, res: Response): Promise<Response> {
+    const tokenData = await this.authJwtService.decode(refreshToken);
+    await this.userService.findById(tokenData.iss);
+    const tokens = this.authJwtService.generateTokens({ sub: tokenData.sub });
+    res = this.setTokenInCookie(res, tokens.refreshToken);
+    return res.status(HttpStatus.OK).json({ accessToken: tokens.accessToken });
+  }
+
+  private setTokenInCookie(res: Response, refreshToken: string): Response {
     return res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       secure: true,
