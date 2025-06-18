@@ -8,8 +8,14 @@ export const jwtModuleConfig: JwtModuleAsyncOptions = {
   imports: [ConfigModule.forFeature(jwtConfig)],
   inject: [jwtConfig.KEY],
   useFactory: (jwtConf: ConfigType<typeof jwtConfig>) => {
-    const privateKeyPath = path.resolve(__dirname, '../../../keys/private.pem');
-    const publicKeyPath = path.resolve(__dirname, '../../../keys/public.pem');
+    const privateKeyPath = path.resolve(
+      __dirname,
+      '../../../shared/keys/private.pem',
+    );
+    const publicKeyPath = path.resolve(
+      __dirname,
+      '../../../shared/keys/public.pem',
+    );
 
     return {
       privateKey: fs.readFileSync(privateKeyPath, 'utf8'),

@@ -12,7 +12,7 @@ import { ConfigType } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { UserJwtDataDto } from '../dto/user-jwt-data.dto';
 import { JwtTokensDto } from '../dto/jwt-tokens.dto';
-import { JwtPayload } from '../../../strategy/jwt.strategy';
+import { JwtPayload } from '../../../shared/strategy/jwt.strategy';
 
 @Injectable()
 export class AuthJwtService {
@@ -23,7 +23,7 @@ export class AuthJwtService {
     private readonly jwtConf: ConfigType<typeof jwtConfig>,
   ) {
     this.privateKey = fs.readFileSync(
-      path.join(__dirname, '../../../keys/public.pem'),
+      path.join(__dirname, '../../../shared/keys/public.pem'),
     );
   }
 

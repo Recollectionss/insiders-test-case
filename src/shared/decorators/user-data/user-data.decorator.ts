@@ -1,5 +1,5 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
-import { UserJwtDataDto } from '../../modules/auth/dto/user-jwt-data.dto';
+import { UserJwtDataDto } from '../../../modules/auth/dto/user-jwt-data.dto';
 
 export const UserData = createParamDecorator(
   (data: unknown, ctx: ExecutionContext) => {
