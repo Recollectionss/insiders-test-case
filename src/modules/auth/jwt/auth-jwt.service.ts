@@ -11,6 +11,7 @@ import jwtConfig from '../../../config/jwt.config';
 import { ConfigType } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { UserJwtDataDto } from '../dto/user-jwt-data.dto';
+import { JwtTokensDto } from '../dto/jwt-tokens.dto';
 
 @Injectable()
 export class AuthJwtService {
@@ -25,7 +26,7 @@ export class AuthJwtService {
     );
   }
 
-  generateTokens(payload: UserJwtDataDto) {
+  generateTokens(payload: UserJwtDataDto): JwtTokensDto {
     return {
       refreshToken: this.generateRefreshToken(payload),
       accessToken: this.generateAccessToken(payload),

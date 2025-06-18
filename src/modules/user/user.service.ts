@@ -1,5 +1,6 @@
 import {
-  ConflictException, Inject,
+  ConflictException,
+  Inject,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
@@ -26,12 +27,22 @@ export class UserService {
     }
   }
 
-  async findOne(id: string): Promise<UserDto> {
+  async findById(id: string): Promise<UserDto> {
     const dataValues = await this.findUserByPk(id);
     return {
       id: dataValues.id,
       email: dataValues.email,
       username: dataValues.username,
+    };
+  }
+
+  async findByEmail(email: string): Promise<UserDto> {
+    const dataValues = await this.userRepository.findOne({ where: { email } });
+    return {
+      id: dataValues.id,
+      email: dataValues.email,
+      username: dataValues.username,
+      password: dataValues.password,
     };
   }
 
@@ -66,6 +77,6 @@ export class UserService {
     if (dataValues) {
       throw new ConflictException('This email is already in use');
     }
-    return dataValues;
+    return;
   }
 }

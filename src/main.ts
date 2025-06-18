@@ -5,9 +5,11 @@ import appConfig from './config/app.config';
 import postgresConfig from './config/postgres.config';
 import { postgresTestConnection } from './modules/postgres/postgres.test.connection';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.use(cookieParser());
 
   const configService = app.get(ConfigService);
   const appConf: ConfigType<typeof appConfig> = configService.get('app');

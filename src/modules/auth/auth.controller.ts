@@ -11,6 +11,7 @@ import {
 import { AuthService } from './auth.service';
 import { SignUpDto } from './dto/sign-up.dto';
 import { SignInDto } from './dto/sign-in.dto';
+import { Request, Response } from 'express';
 
 @Controller('auth')
 export class AuthController {
