@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { PostgresModule } from './postgres/postgres.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { EventModule } from './event/event.module';
 import appConfig from '../config/app.config';
 
 @Module({
@@ -11,6 +12,7 @@ import appConfig from '../config/app.config';
     PostgresModule,
     UserModule,
     AuthModule,
+    EventModule,
   ],
   controllers: [],
   providers: [],
