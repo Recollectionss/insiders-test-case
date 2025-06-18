@@ -56,7 +56,7 @@ export class AuthService {
 
   async refresh(refreshToken: string, res: Response): Promise<Response> {
     const tokenData = await this.authJwtService.decode(refreshToken);
-    await this.userService.findById(tokenData.iss);
+    await this.userService.findById(tokenData);
     const tokens = this.authJwtService.generateTokens({ sub: tokenData.sub });
     res = this.setTokenInCookie(res, tokens.refreshToken);
     return res.status(HttpStatus.OK).json({ accessToken: tokens.accessToken });

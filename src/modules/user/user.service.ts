@@ -52,7 +52,10 @@ export class UserService {
       await this.validateByEmail(data.email);
     }
     try {
-      await this.userRepository.update({ ...data }, { where: { id: userData.sub } });
+      await this.userRepository.update(
+        { ...data },
+        { where: { id: userData.sub } },
+      );
     } catch (error) {
       throw new InternalServerErrorException(error.message);
     }
