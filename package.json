@@ -22,7 +22,10 @@
     "migration:create": "sequelize migration:create --name",
     "migration:up": "sequelize-cli db:migrate",
     "migration:down": "sequelize-cli db:migrate:undo",
-    "migration:reset": "sequelize-cli db:migrate:undo:all"
+    "migration:reset": "sequelize-cli db:migrate:undo:all",
+    "seed:create": "sequelize-cli seed:generate --name",
+    "seed:up": "npx sequelize-cli db:seed:all",
+    "seed:reset": "npx sequelize-cli db:seed:undo:all"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
