@@ -3,12 +3,15 @@ services:
   node:
     container_name: insiders-node
     env_file:
-      - .env
+      - ./.env
     build:
       context: .
       dockerfile: ./Dockerfile
     ports:
       - '${PORT}:${PORT}'
+    depends_on:
+      - postgres
+    command: sh -c "npm install  && npm run build && npm run migration:up&& npm run seed:up && npm run start:dev"
 
   postgres:
     container_name: insiders-postgres
