@@ -1,5 +1,5 @@
 import {
-  ConflictException,
+  ConflictException, Inject,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
@@ -8,10 +8,13 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { UserDto } from './dto/user.dto';
+import { USER_REPOSITORY } from './user.constants';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly userRepository: typeof User) {}
+  constructor(
+    @Inject(USER_REPOSITORY) private readonly userRepository: typeof User,
+  ) {}
 
   async create(data: CreateUserDto): Promise<string> {
     await this.validateByEmail(data.email);
