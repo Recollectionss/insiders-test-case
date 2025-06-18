@@ -1,6 +1,6 @@
 import { Column, DataType, Model, Table } from 'sequelize-typescript';
 
-@Table({ tableName: 'Users' })
+@Table({ tableName: 'Users', timestamps: false })
 export class User extends Model {
   @Column({
     type: DataType.UUID,
