@@ -4,5 +4,5 @@ export class EventDto {
   description: string;
   location: string;
   date: Date;
-  maxParticipant: number;
+  maxParticipants: number;
 }

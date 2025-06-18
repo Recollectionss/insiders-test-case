@@ -33,7 +33,10 @@ export class AuthService {
   async signIn(data: SignInDto, res: Response): Promise<Response> {
     const dataValues = await this.userService.findByEmail(data.email);
     if (
-      await this.hashingService.compareHash(data.password, dataValues.password)
+      !(await this.hashingService.compareHash(
+        data.password,
+        dataValues.password,
+      ))
     ) {
       throw new BadRequestException('Invalid password');
     }

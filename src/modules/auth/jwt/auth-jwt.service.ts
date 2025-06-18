@@ -23,7 +23,7 @@ export class AuthJwtService {
     private readonly jwtConf: ConfigType<typeof jwtConfig>,
   ) {
     this.privateKey = fs.readFileSync(
-      path.join(__dirname, '../../../shared/keys/public.pem'),
+      path.join(__dirname, '../../../shared/keys/private.pem'),
     );
   }
 

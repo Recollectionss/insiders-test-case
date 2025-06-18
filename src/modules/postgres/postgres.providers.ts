@@ -5,6 +5,7 @@ import { ENV, NODE_ENV } from '../../constants/env.constants';
 import { Sequelize } from 'sequelize-typescript';
 import { User } from '../user/entities/user.entity';
 import { Event } from '../event/entities/event.entity';
+import { Participant } from '../participants/entity/participants.entity';
 
 export const postgresProviders = [
   {
@@ -30,7 +31,7 @@ export const postgresProviders = [
         define: { schema: creeds.schema },
       });
 
-      sequelize.addModels([User, Event]);
+      sequelize.addModels([User, Event, Participant]);
 
       if (appConf.node_env === NODE_ENV.Testing) {
         await sequelize.sync({ force: true });

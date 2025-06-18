@@ -8,5 +8,6 @@ import { EventProviders } from './event.providers';
   controllers: [EventController],
   providers: [EventService, ...EventProviders],
   imports: [PostgresModule],
+  exports: [EventService],
 })
 export class EventModule {}

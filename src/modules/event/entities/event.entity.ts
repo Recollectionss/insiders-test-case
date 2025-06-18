@@ -1,6 +1,6 @@
 import { Column, DataType, Model, Table } from 'sequelize-typescript';
 
-@Table({ tableName: 'Event', timestamps: false })
+@Table({ tableName: 'Events', timestamps: false })
 export class Event extends Model {
   @Column({
     type: DataType.UUID,
@@ -24,7 +24,7 @@ export class Event extends Model {
     type: DataType.DATE,
     allowNull: false,
   })
-  date: string;
+  date: Date;
 
   @Column({
     type: DataType.STRING,
@@ -36,5 +36,5 @@ export class Event extends Model {
     type: DataType.INTEGER,
     allowNull: false,
   })
-  maxParticipants: string;
+  maxParticipants: number;
 }
